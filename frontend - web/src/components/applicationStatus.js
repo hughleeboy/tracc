@@ -12,7 +12,7 @@ const ApplicationStatus = (props) => {
         <Card title={props.state} className="Application-cards">
             {
                 applications.map( application => {
-                    return <Application application={application} />
+                    return <Application key={application.id} application={application} />
                 })
             }
         </Card>

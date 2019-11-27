@@ -5,9 +5,9 @@ import { GoogleLogin } from 'react-google-login'
 
 const Login = (props) => {
     
-    // responseGoogle = (response) => {
-    //     console.log(response)
-    // }
+    const responseGoogle = (response) => {
+        console.log(response)
+    }
 
     const dispatch = useDispatch()
 
@@ -17,14 +17,14 @@ const Login = (props) => {
     }
 
     return <div>
-        <Button title="Login" onClick={()=> loginSuccess()}> Login </Button>
-        {/* <GoogleLogin
-            clientId="CLIENT_ID"
+        {/* <Button title="Login" onClick={()=> loginSuccess()}> Login </Button> */}
+        <GoogleLogin
+            clientId="CLIENTID"
             buttonText="Login"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
-        /> */}
+        />
     </div> 
 }
 
