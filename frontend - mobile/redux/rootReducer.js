@@ -1,6 +1,7 @@
 initState = {
     displayHome: "Hi this is from the store home",
     displayProfile: "Hi this is from the store profile",
+    status: [ "Prospects","Applied","Rejected","Accepted" ]
 }
 
 const RootReducer = (state = initState, action) => {

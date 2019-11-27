@@ -1,2 +1,0 @@
-# tracc
-track your applications
