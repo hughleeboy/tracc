@@ -1,16 +1,16 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Applications from './components/applications'
 import PrivateRoute from './components/privateRoute'
-import Login from './components/login'
-
+import Applications from './components/applications'
+import Auth from './components/auth'
+import NotFound from './components/pageNotFound'
 
 const MainNav = () => {
     return <BrowserRouter>
         <Switch>
-          {/* <PrivateRoute path="/" /> */}
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={Auth} />
           <PrivateRoute exact path="/applications" component={Applications}/>
+          <Route component={NotFound} />
         </Switch>
     </BrowserRouter>
 }

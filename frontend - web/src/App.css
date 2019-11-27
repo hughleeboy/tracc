@@ -24,6 +24,15 @@
   height: 500px;
 }
 
+.carousel-auth {
+  /* height: 100vh; */
+  top: 30vh;
+}
+
+.carousel-forms {
+  padding: 2vw;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

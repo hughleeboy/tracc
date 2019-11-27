@@ -8,13 +8,14 @@ const initState = {
         title: 'intern'
     }],
     user:{
-        signedIn: false,
+        signedIn: true,
     }
 }
 
 const RootReducer = (state = initState, action) => {
     switch(action.type) {
         case 'LOGIN':
+            console.log(action.user)
             state = {
                 ...state,
                 user: {
