@@ -13,7 +13,6 @@ class NormalLoginForm extends React.Component {
           Username: values.Username,
           Password: values.Password
         }
-        console.log(headers)
         fetch(url+'login', {
           headers: headers,
         }).then(response => response.json())
