@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import { ScrollView, Text, SafeAreaView, TouchableOpacity, ToastAndroid } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Input, Button } from 'react-native-elements'
 import styles from '../style/styles'
 import { url } from '../secrets'
 
 const RegisterPage = (props) => {
 
-    const status = useSelector(state => state.status)
     const [FName, setFName] = useState('')
     const [LName, setLName] = useState('')
     const [Username, setUsername] = useState('')
     const [Password, setPassword] = useState('')
+    const dispatch = useDispatch()
 
     const onSubmit = () => {
-        if(FName === "" || LName === "" || Username === "" || Password === "") {
+        if(FName === '' || LName === '' || Username === '' || Password === '') {
             ToastAndroid.show('Please fill in all information!', ToastAndroid.SHORT)  
         } else {
             const values = { FName, LName, Username, Password }
@@ -26,7 +26,18 @@ const RegisterPage = (props) => {
                 body: JSON.stringify(values)
             }).then(response => response.json(values))
             .then(result => {
-            console.log(result)
+                if(result.err === 'none') {
+                    dispatch({
+                        type: 'LOGIN',
+                        ...values
+                    })
+                    ToastAndroid.show('Registration Successful!', ToastAndroid.SHORT)
+                    props.navigation.navigate('MainNav')
+                } else if(result.err === 'none'){
+                    ToastAndroid.show('Registration error! A user with that username already exists.', ToastAndroid.SHORT)
+                }else {
+                    ToastAndroid.show('Registration error! Please try entering the information again.', ToastAndroid.SHORT)  
+                }
             })
         }
     }
@@ -39,9 +50,9 @@ const RegisterPage = (props) => {
             <Input placeholder='Enter First Name' onChangeText={(fname) => setFName(fname)} />
             <Input placeholder='Enter Last Name' onChangeText={(lname) => setLName(lname)} />
             <Input placeholder='Enter Username' onChangeText={(username) => setUsername(username)} />
-            <Input placeholder='Enter Password' onChangeText={(password) => setPassword(password)} />
+            <Input secureTextEntry={true} placeholder='Enter Password' onChangeText={(password) => setPassword(password)} />
             <Button title='Sign Up' onPress={()=>onSubmit()}/>
-            <TouchableOpacity onPress={()=>props.navigation.navigate("Login")}>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('Login')}>
                 <Text>
                     Or Sign In!
                 </Text>

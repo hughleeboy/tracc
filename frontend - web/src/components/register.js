@@ -16,7 +16,6 @@ class NormalRegisterForm extends React.Component {
           body: JSON.stringify(values)
         }).then(response => response.json(values))
         .then(result => {
-          console.log(result)
           if(result.err === 'none') {
             this.props.loggedIn(values)
           } else if(result.err === 'none'){
