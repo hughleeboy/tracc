@@ -1,6 +1,5 @@
-import { createAppContainer } from "react-navigation"
-import { createSwitchNavigator } from 'react-navigation';
-// import { createStackNavigator } from "react-navigation-stack"
+import { createAppContainer } from 'react-navigation'
+import { createSwitchNavigator } from 'react-navigation'
 import MainNav from './mainnav'
 import Login from '../components/loginpage'
 import Register from '../components/registerpage'
@@ -11,7 +10,7 @@ const Navigator = createSwitchNavigator({
         MainNav: MainNav,
       },
       {
-        initialRouteName: 'Login',
+        initialRouteName: 'MainNav',
       },
 )
 
