@@ -9,6 +9,15 @@ const styles = StyleSheet.create({
         fontSize: 19,
         fontWeight: 'bold',
     },
+    application_form_title: {
+        paddingTop: SH * 0.02, 
+        fontSize: 19,
+        fontWeight: 'bold',
+    },
+    application_form_text: {
+        fontSize: 19,
+        fontWeight: 'bold',
+    },
     action_button_icon: {
         fontSize: 20,
         height: 22,

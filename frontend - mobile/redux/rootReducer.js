@@ -9,30 +9,30 @@ initState = {
         key: 'prospect',
         title: 'Prospects',
         svg: {
-            fill: 'blue',
+            fill: '#30A9DE',
         },
-        value:10
+        value:0
     },{
         key: 'pending',
         title: 'Applied',
         svg: {
-            fill: 'yellow',
+            fill: '#EFDC05',
         },
-        value:10
+        value:0
     },{
         key: 'reject',
         title: 'Rejected',
         svg: {
-            fill: 'red',
+            fill: '#E53A40',
         },
-        value:10
+        value:0
     },{
         key: 'accept',
         title: 'Accepted',
         svg: {
-            fill: 'green',
+            fill: '#77AF9C',
         },
-        value:10
+        value:0
     }],
     user: {
         signedIn: false,
@@ -49,7 +49,7 @@ const RootReducer = (state = initState, action) => {
                 user: {
                     signedIn: true,
                     Username: action.Username,
-                    Password: action.Password
+                    Password: action.Password,
                 }
             }
             return state
@@ -61,10 +61,10 @@ const RootReducer = (state = initState, action) => {
                 pending: action.data.pending,
                 accept: action.data.accept,
                 reject: action.data.reject,
-                prospect: action.data.prospect
+                prospect: action.data.prospect,
             }
             return state
-        case 'APPLIC`ATION_REJECTED':
+        case 'APPLICATION_REJECTED':
             fetch(url+'applications/reject', {
                 method: 'PATCH',
                 headers: {
@@ -99,6 +99,31 @@ const RootReducer = (state = initState, action) => {
                 body: JSON.stringify({AppID: action.AppId})
             }).then(response => response.json())
             .then(result => {})
+            return state
+        case 'ADD_APPLICATION':
+            fetch(url+'applications/prospect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    Username: state.user.Username,
+                    Password: state.user.Password
+                },
+                body: JSON.stringify(action.data)
+            }).then(response => response.json())
+            .then(result => {
+                if(action.data.Applied) {
+                    fetch(url+'applications/pending', {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                            Username: state.user.Username,
+                            Password: state.user.Password
+                        },
+                        body: JSON.stringify({AppID: result.AppID})
+                    }).then(response => response.json())
+                    .then(result => {})
+                }
+            })
             return state  
         default:
             return state

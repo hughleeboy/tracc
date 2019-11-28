@@ -1,13 +1,11 @@
 import React from 'react'
 import { Text } from 'react-native'
 import { Card } from 'react-native-elements'
-import { useDispatch } from 'react-redux'
 
 
 const Application = (props) => {
 
-    const dispatch = useDispatch()
-    console.log(props)
+    const date = Date.parse(props.info.AppDate)
     return <Card>
         <Text>
             {props.info.Name}
@@ -15,9 +13,13 @@ const Application = (props) => {
         <Text>
             {props.info.Position}
         </Text>
-        <Text>
-            {props.info.AppDate}
-        </Text>
+        {
+            date === undefined ?
+            <Text>
+            { date.getDate+ '/' + date.getMonth+ '/' + date.getFullYear }
+            </Text> :
+            <Text />
+        }
     </Card>
 } 
 
