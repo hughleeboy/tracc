@@ -10,7 +10,7 @@ const Navigator = createSwitchNavigator({
         MainNav: MainNav,
       },
       {
-        initialRouteName: 'MainNav',
+        initialRouteName: 'Login',
       },
 )
 

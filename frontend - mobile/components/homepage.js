@@ -1,64 +1,59 @@
-import React, { useState } from 'react'
-import { ScrollView, Text, SafeAreaView, TouchableOpacity, View } from 'react-native'
-import { useSelector } from 'react-redux'
-import { Card, Overlay } from 'react-native-elements'
+import React, { useState, useEffect } from 'react'
+import { ScrollView, Text, SafeAreaView, TouchableOpacity, View, ToastAndroid } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { Card, Overlay, Button } from 'react-native-elements'
 import styles, { SH, SW } from '../style/styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { PieChart } from 'react-native-svg-charts'
 import Applications from './applications'
-
+import { url } from '../secrets'
 
 
 const HomePage = () => {
 
     const status = useSelector(state => state.status)
+    const user = useSelector(state => state.user)
     const [ visible, setVisibility ] = useState(false) 
     const [ overlayState, setOverlayState ] = useState({})
+    const dispatch = useDispatch()
 
-    const pieData = [{
-        key: 'prospects',
-        svg: {
-            fill: 'blue',
-        },
-        value:10
-    },{
-        key: 'applied',
-        svg: {
-            fill: 'yellow',
-        },
-        value:10
-    },{
-        key: 'rejected',
-        svg: {
-            fill: 'red',
-        },
-        value:10
-    },{
-        key: 'accepted',
-        svg: {
-            fill: 'green',
-        },
-        value:10
-    }]
+    useEffect(() => {
+        fetch(url+'applications', {
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                Username: user.Username,
+                Password: user.Password
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.err === 'none') {
+                dispatch({type: 'GET_APPLICATIONS', data})
+            } else {
+                ToastAndroid.show(`There was an error getting the applications. ${data.err}`, ToastAndroid.SHORT)
+            }
+        })
+        .catch(err => alert(err))
+    })
 
     return <SafeAreaView>
         <ScrollView>
             <PieChart
-                style={ { height: 200 } }
-                data={ pieData }
+                style={ { height: SH*0.35 } }
+                data={ status }
             />
             {
                 status.map( (state) => {
                     return <TouchableOpacity
                         onPress={() => {
-                            setOverlayState(state)
+                            setOverlayState(state.key)
                             setVisibility(true)
                         }}
-                        key={state}
+                        key={state.key}
                      >
                         <Card>
                             <Text>
-                                {state}        
+                                {state.title}        
                             </Text>
                         </Card>
                     </TouchableOpacity>
@@ -82,6 +77,7 @@ const HomePage = () => {
                     <Applications state={overlayState} />
                 </View>
             </Overlay>
+            <Button title='Add Prospect' />
         </ScrollView>
     </SafeAreaView>
 }

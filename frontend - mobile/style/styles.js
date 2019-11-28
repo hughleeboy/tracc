@@ -9,6 +9,11 @@ const styles = StyleSheet.create({
         fontSize: 19,
         fontWeight: 'bold',
     },
+    action_button_icon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+    },
 });
 
 export default styles

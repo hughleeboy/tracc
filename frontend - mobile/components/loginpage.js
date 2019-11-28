@@ -23,7 +23,7 @@ const LoginPage = (props) => {
                 Password: values.Password
             }
             fetch(url+'login', {
-            headers: headers,
+                headers: headers,
             }).then(response => response.json())
             .then(result => {
             if(result.status === 'good') {
