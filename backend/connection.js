@@ -1,5 +1,5 @@
 const mysql = require("mysql")
-const creds = require("./dbcreds")
+const creds = require("./credentials")
 
 // db connection
 const connection = mysql.createConnection(creds)
@@ -10,8 +10,9 @@ connection.connect(err => {
 		console.log("SUCCESSFULLY connected to mysql")
 })
 
-module.exports = {
-    connection: mysql.createConnection(creds)
-}
+//module.exports = {
+//    connection: mysql.createConnection(creds)
+//}
 
+module.exports = connection;
 

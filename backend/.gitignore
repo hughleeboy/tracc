@@ -1,2 +1,3 @@
 node_modules/**/*
-/dbcreds.js
+/dbcred.js
+/credentials.js
